@@ -368,6 +368,14 @@ public class LeafQueue extends AbstractCSQueue {
   }
 
   public synchronized int getNumActiveApplications() {
+    Exception stevensli_e = new Exception("stevensli print getNumActiveApplications stack:");
+    StackTraceElement[] stevensli_trace = stevensli_e.getStackTrace();
+    StringBuilder stevensli_sb=new StringBuilder("");
+    stevensli_sb.append("stevensli getNumActiveApplications for :" + this.toString());
+    for (StackTraceElement stackTraceElement : stevensli_trace) {
+      stevensli_sb.append("\n\t\tat " + stackTraceElement);
+    }
+    LOG.warn(stevensli_sb.toString());
     return orderingPolicy.getNumSchedulableEntities();
   }
 
@@ -839,7 +847,7 @@ public class LeafQueue extends AbstractCSQueue {
           + " since cluster resource is " + Resources.none());
     }
 
-    LOG.info("Application added -" +
+    LOG.warn("Application added -" +
         " appId: " + application.getApplicationId() +
         " user: " + application.getUser() + "," +
         " leaf-queue: " + getQueueName() +
