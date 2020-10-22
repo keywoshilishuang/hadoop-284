@@ -98,7 +98,14 @@ public abstract class AbstractComparatorOrderingPolicy<S extends SchedulableEnti
     if (null == s) {
       return;
     }
-    LOG.warn("stevensli addSchedulableEntity for :"+s.toString());
+    Exception stevensli_e = new Exception("stevensli print addSchedulableEntity stack:");
+    StackTraceElement[] stevensli_trace = stevensli_e.getStackTrace();
+    StringBuilder stevensli_sb=new StringBuilder("");
+    stevensli_sb.append("stevensli addSchedulableEntity for :" + s.toString());
+    for (StackTraceElement stackTraceElement : stevensli_trace) {
+      stevensli_sb.append("\n\t\tat " + stackTraceElement);
+    }
+    LOG.warn(stevensli_sb.toString());
     schedulableEntities.add(s); 
   }
   
@@ -108,7 +115,14 @@ public abstract class AbstractComparatorOrderingPolicy<S extends SchedulableEnti
     if (null == s) {
       return false;
     }
-    LOG.warn("stevensli removeSchedulableEntity for :" + s.toString());
+    Exception stevensli_e = new Exception("stevensli print removeSchedulableEntity stack:");
+    StackTraceElement[] stevensli_trace = stevensli_e.getStackTrace();
+    StringBuilder stevensli_sb=new StringBuilder("");
+    stevensli_sb.append("stevensli removeSchedulableEntity for :" + s.toString());
+    for (StackTraceElement stackTraceElement : stevensli_trace) {
+      stevensli_sb.append("\n\t\tat " + stackTraceElement);
+    }
+    LOG.warn(stevensli_sb.toString());
     synchronized (entitiesToReorder) {
       entitiesToReorder.remove(s.getId());
     }
