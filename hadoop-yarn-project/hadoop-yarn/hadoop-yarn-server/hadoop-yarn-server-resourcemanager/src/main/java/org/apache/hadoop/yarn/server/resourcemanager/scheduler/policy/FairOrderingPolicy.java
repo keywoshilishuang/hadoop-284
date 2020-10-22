@@ -22,8 +22,11 @@ import java.util.*;
 
 import com.google.common.annotations.VisibleForTesting;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.yarn.server.resourcemanager.rmcontainer.RMContainer;
 import org.apache.hadoop.yarn.nodelabels.CommonNodeLabelsManager;
+import org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.LeafQueue;
 
 /**
  * An OrderingPolicy which orders SchedulableEntities for fairness (see
@@ -36,6 +39,7 @@ import org.apache.hadoop.yarn.nodelabels.CommonNodeLabelsManager;
  * continuously (optional, default false)
  */
 public class FairOrderingPolicy<S extends SchedulableEntity> extends AbstractComparatorOrderingPolicy<S> {
+  private static final Log LOG = LogFactory.getLog(FairOrderingPolicy.class);
 
   public static final String ENABLE_SIZE_BASED_WEIGHT =
         "fair.enable-size-based-weight";
@@ -67,7 +71,8 @@ public class FairOrderingPolicy<S extends SchedulableEntity> extends AbstractCom
   private double getMagnitude(SchedulableEntity r) {
     double mag = r.getSchedulingResourceUsage().getCachedUsed(
       CommonNodeLabelsManager.ANY).getMemorySize();
-    if (sizeBasedWeight) {
+    LOG.warn("stevensli get patch done.");
+    if (sizeBasedWeight && mag != 0) {
       double weight = Math.log1p(r.getSchedulingResourceUsage().getCachedDemand(
         CommonNodeLabelsManager.ANY).getMemorySize()) / Math.log(2);
       mag = mag / weight;
