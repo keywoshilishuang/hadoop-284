@@ -71,7 +71,6 @@ public class FairOrderingPolicy<S extends SchedulableEntity> extends AbstractCom
   private double getMagnitude(SchedulableEntity r) {
     double mag = r.getSchedulingResourceUsage().getCachedUsed(
       CommonNodeLabelsManager.ANY).getMemorySize();
-    LOG.warn("stevensli get patch done.");
     if (sizeBasedWeight && mag != 0) {
       double weight = Math.log1p(r.getSchedulingResourceUsage().getCachedDemand(
         CommonNodeLabelsManager.ANY).getMemorySize()) / Math.log(2);

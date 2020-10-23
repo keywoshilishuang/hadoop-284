@@ -94,35 +94,17 @@ public abstract class AbstractComparatorOrderingPolicy<S extends SchedulableEnti
   
   @Override
   public void addSchedulableEntity(S s) {
-    LOG.warn("stevensli addSchedulableEntity start.");
     if (null == s) {
       return;
     }
-    Exception stevensli_e = new Exception("stevensli print addSchedulableEntity stack:");
-    StackTraceElement[] stevensli_trace = stevensli_e.getStackTrace();
-    StringBuilder stevensli_sb=new StringBuilder("");
-    stevensli_sb.append("stevensli addSchedulableEntity for :" + s.toString());
-    for (StackTraceElement stackTraceElement : stevensli_trace) {
-      stevensli_sb.append("\n\t\tat " + stackTraceElement);
-    }
-    LOG.warn(stevensli_sb.toString());
     schedulableEntities.add(s); 
   }
   
   @Override
   public boolean removeSchedulableEntity(S s) {
-    LOG.warn("stevensli removeSchedulableEntity start.");
     if (null == s) {
       return false;
     }
-    Exception stevensli_e = new Exception("stevensli print removeSchedulableEntity stack:");
-    StackTraceElement[] stevensli_trace = stevensli_e.getStackTrace();
-    StringBuilder stevensli_sb=new StringBuilder("");
-    stevensli_sb.append("stevensli removeSchedulableEntity for :" + s.toString());
-    for (StackTraceElement stackTraceElement : stevensli_trace) {
-      stevensli_sb.append("\n\t\tat " + stackTraceElement);
-    }
-    LOG.warn(stevensli_sb.toString());
     synchronized (entitiesToReorder) {
       entitiesToReorder.remove(s.getId());
     }
