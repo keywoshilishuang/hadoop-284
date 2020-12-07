@@ -1330,11 +1330,13 @@ public class CapacityScheduler extends
         updateSchedulerHealth(lastNodeUpdateTime, node, assignment);
       }
     } else {
-      LOG.info("Skipping scheduling since node "
-          + node.getNodeID()
-          + " is reserved by application "
-          + node.getReservedContainer().getContainerId()
-              .getApplicationAttemptId());
+      reservedContainer = node.getReservedContainer();
+      if (reservedContainer != null) {
+        LOG.info("Skipping scheduling since node "
+                + node.getNodeID()
+                + " is reserved by application "
+                + reservedContainer.getContainerId().getApplicationAttemptId());
+      }
     }
   }
 
